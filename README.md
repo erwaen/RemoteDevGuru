@@ -1,5 +1,9 @@
 # RemoteDevGuru
 
+> Team Leader: [@rgs1](https://github.com/rgs1)
+> 
+> Co-leader: [@erwaen](https://github.com/erwaen)
+
 RemoteDevGuru is an informative ChatBot designed to assist remote developers by providing comprehensive information on remote development. The project utilizes a hybrid search approach, combining the capabilities of vector-based databases for efficient indexing with large language models (LLMs), including ChatGPT and other local language models, for advanced natural language understanding.
 
 ## Project Status
