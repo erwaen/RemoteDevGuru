@@ -3,7 +3,7 @@ import fastapi
 import httpx
 import pytest
 
-from src.main import initialize_backend_application
+from source.main import initialize_backend_application
 
 
 @pytest.fixture(name="backend_test_app")

@@ -4,7 +4,7 @@ import pydantic
 from jose import jwt as jose_jwt, JWTError as JoseJWTError
 
 from config.manager import settings
-from models.db.account import Account
+
 from models.schemas.jwt import JWTAccount, JWToken
 from utilities.exceptions.database import EntityDoesNotExist
 
@@ -30,15 +30,6 @@ class JWTGenerator:
         to_encode.update(JWToken(exp=expire, sub=settings.JWT_SUBJECT).dict())
 
         return jose_jwt.encode(to_encode, key=settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
-
-    def generate_access_token(self, account: Account) -> str:
-        if not account:
-            raise EntityDoesNotExist(f"Cannot generate JWT token for without Account entity!")
-
-        return self._generate_jwt_token(
-            jwt_data=JWTAccount(username=account.username, email=account.email).dict(),  # type: ignore
-            expires_delta=datetime.timedelta(minutes=settings.JWT_ACCESS_TOKEN_EXPIRATION_TIME),
-        )
 
     def retrieve_details_from_token(self, token: str, secret_key: str) -> list[str]:
         try:

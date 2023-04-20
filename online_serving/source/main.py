@@ -32,11 +32,11 @@ def initialize_backend_application() -> fastapi.FastAPI:
     return app
 
 
-backend_app: fastapi.FastAPI = initialize_backend_application()
+online_serving_app: fastapi.FastAPI = initialize_backend_application()
 
 if __name__ == "__main__":
     uvicorn.run(
-        app="main:backend_app",
+        app="main:online_serving_app",
         host=settings.SERVER_HOST,
         port=settings.SERVER_PORT,
         reload=settings.DEBUG,
