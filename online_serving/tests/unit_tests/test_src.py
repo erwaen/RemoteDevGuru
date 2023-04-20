@@ -1,12 +1,12 @@
 import fastapi
 
-import src
-from src.main import backend_app
+import source
+from source.main import backend_app
 
 
-def test_src_version() -> None:
+def test_source_version() -> None:
 
-    assert src.__version__ == "0.0.1"
+    assert source.__version__ == "0.0.1"
 
 
 def test_application_is_fastapi_instance() -> None:
