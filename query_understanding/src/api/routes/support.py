@@ -20,7 +20,7 @@ async def user_support(
     
 ) -> dict:
     """
-    El usuario envia los problemas/ errores que ha tenido o visto mientras utilizaba el chatbot
+    El usuario envia los problemas/errores que ha tenido o visto mientras utilizaba el chatbot
     """
     return {"message":"se recibe los errores/problemas que envia el usuario"}
 

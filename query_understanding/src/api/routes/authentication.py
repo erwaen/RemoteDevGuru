@@ -24,9 +24,7 @@ async def signup(
     """
     Aqui se registra el correo del usuario que sera vinculado a su cuenta
     """
-    return {}
-
-
+    return {"message":"usuario registrado correctamente"}
 
 
 @router.post(
@@ -40,7 +38,7 @@ async def signin(
     """
     Para iniciar sesion con un usuario ya registrado con su correo
     """
-    return {}
+    return {"message":"el usuario inicio sesion correctamente"}
 
 
 @router.post(
@@ -53,4 +51,4 @@ async def logout(
     """
     Cerrar sesion y desconectarse del backend
     """
-    return {}
+    return {"message":"el usuario ha cerrado sesion correctamente"}
