@@ -16,12 +16,17 @@ router = fastapi.APIRouter(prefix="/auth", tags=["authentication"])
     "/signup",
     name="auth:signup",
     status_code=fastapi.status.HTTP_201_CREATED,
+    
 )
 async def signup(
     
 ) -> dict:
-
+    """
+    Aqui se registra el correo del usuario que sera vinculado a su cuenta
+    """
     return {}
+
+
 
 
 @router.post(
@@ -32,5 +37,20 @@ async def signup(
 async def signin(
     
 ) -> dict:
+    """
+    Para iniciar sesion con un usuario ya registrado con su correo
+    """
+    return {}
 
+
+@router.post(
+    path="/logout",
+    name="auth:logout",
+)
+async def logout(
+    
+) -> dict:
+    """
+    Cerrar sesion y desconectarse del backend
+    """
     return {}
