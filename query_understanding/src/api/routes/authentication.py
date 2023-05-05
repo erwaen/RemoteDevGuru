@@ -22,9 +22,18 @@ async def signup(
     
 ) -> dict:
     """
-    Aqui se registra el correo del usuario que sera vinculado a su cuenta
+    Crear usuario
+
+    Enviar el usuario nuevo al servidor()
+
+    Parametros: 
+        - credenciales nuevas del usuario: correo y contrasena
+
+    Retorno:
+        - Confirmacion de que el usuario se registro correctamente
+
     """
-    return {"message":"usuario registrado correctamente"}
+    return {"message":"usuario registrado o no registrado"}
 
 
 @router.post(
@@ -36,9 +45,18 @@ async def signin(
     
 ) -> dict:
     """
-    Para iniciar sesion con un usuario ya registrado con su correo
+    Iniciar Sesion
+
+    Preguntar al servidor si tiene al usuario y contrasena registrados()
+
+    Parametros: 
+        - credenciales del usuario: correo y contrasena
+
+    Retorno:
+        - Confirmacion o Negacion de la existencia del usuario en el servidor
+
     """
-    return {"message":"el usuario inicio sesion correctamente"}
+    return {"message":"estado de inicio de sesion"}
 
 
 @router.post(
@@ -49,6 +67,15 @@ async def logout(
     
 ) -> dict:
     """
-    Cerrar sesion y desconectarse del backend
+    Cerrar sesion
+
+    Cerrar la sesion del usuario actual, para que ya no pueda acceder al servicio()
+
+    Parametros: 
+        - credenciales del usuario: correo y contrasena
+
+    Retorno:
+        - Sesion cerrada correctamente
+
     """
-    return {"message":"el usuario ha cerrado sesion correctamente"}
+    return {"message":"sesion cerrada"}

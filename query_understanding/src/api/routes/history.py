@@ -19,7 +19,16 @@ async def chat_history(
     
 ) -> dict:
     """
-    Se le envia al usuario la lista de chats que tiene guardado
+    Historial de chats
+
+    el usuario consulta al servidor el historial de chats que tiene guardados()
+
+    Parametros: 
+        - nombre de usuario
+
+    Retorno:
+        - lista de chats guardados
+
     """
     return {"message":"se devuelve el historial de chats del usuario"}
 
@@ -31,7 +40,16 @@ async def chat_delete(
     
 ) -> dict:
     """
-    El usuario solicita la eliminacion de uno o varios chats registrados
+    Eliminar chats
+
+    El usuario envia el ID de un chat o varios chats que desea eliminar()
+
+    Parametros: 
+        - nombre de usuario y id del chat
+
+    Retorno:
+        - confirmacion de eliminacion del chat
+    
     """
     return {"message":"se elimina el chat que el usuario marca"}
 

@@ -20,7 +20,16 @@ async def user_message(
     
 ) -> dict:
     """
-    Se recibe la consulta que hace el usuario
+    Query del usuario
+
+    Se recibe la consulta del usuario, para ser procesada y enviada a las diferentes APIs()
+
+    Parameters: 
+        - query y otros parametros predefinidos por frontend
+
+    Response:
+        - 
+
     """
     return {"message":"se recibe lo que el usuario escribe"}
 
@@ -32,7 +41,16 @@ async def user_answers(
     
 ) -> dict:
     """
-    Se envia al usuario las respuestas a su pregunta 
+    Respuesta al usuario
+
+    El usuario obtiene la respuesta a su consulta anterior()
+
+    Parametros: 
+        - 
+
+    Retorno:
+        - llas 3 respuestas de la IA
+
     """
     return {"message":"se envia la respuesta de chatgpt al chat con el usuario"}
 
@@ -46,6 +64,15 @@ async def user_questions(
     
 ) -> dict:
     """
-    Se envia al usuario 3 posibles preguntas que tenga sobre la respuesta de le da el chatbot
+    Preguntas del usuario
+
+    Se envian 3 posibles preguntas que podria tener el usuario sobre la respuesta que le da la IA()
+
+    Parametros: 
+        - la respuesta que dio la IA
+
+    Retorno:
+        - C3 posibles preguntas cortas
+        
     """
     return {"message":"el backend online le envia al frontend las posibles preguntas que tenga el usuario segun su respuesta"}
