@@ -5,7 +5,7 @@ export const PrivateRoute = ({ children }) => {
 
   if(!currentUser)
   {
-    return <Navigate to="/" replace={true}/>
+    return <Navigate to="/chat" replace={true}/>
   }
   return children;
 };

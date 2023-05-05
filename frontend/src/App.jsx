@@ -1,5 +1,7 @@
 import NavBar from "./components/NavBar";
 import Login from "./pages/Login";
+import Support from "./pages/Support";
+import History from "./pages/History";
 import ChatRoom from "./pages/ChatRoom";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
@@ -10,7 +12,7 @@ function App() {
     <div>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Support />} />
         <Route
           path="/chat"
           element={
