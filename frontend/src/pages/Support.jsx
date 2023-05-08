@@ -1,13 +1,45 @@
 import React, { useState } from "react";
+import emailjs from "emailjs-com";
 
 const Support = () => {
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSent, setIsSent] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`Nombre: ${name}, Apellido: ${lastName}`);
+
+    // Separar el nombre y el apellido
+    const [name, lastName] = fullName.split(" ");
+
+    // Configurar EmailJS
+    emailjs
+      .send(
+        "service_6hj57kl",
+        "template_4yf7zz1",
+        {
+          from_name: name,
+          to_name: "Remote Dev Guru",
+          from_email: email,
+          to_email: "maurogimenezb@gmail.com",
+          message: message,
+        },
+        "V3q9UbEYUHUMpjXC0"
+      )
+      .then(
+        () => {
+          console.log("Correo enviado correctamente");
+          // Restablecer los campos del formulario
+          setFullName("");
+          setEmail("");
+          setMessage("");
+          setIsSent(true);
+        },
+        (error) => {
+          console.error("Error al enviar el correo", error);
+        }
+      );
   };
 
   return (
@@ -17,24 +49,24 @@ const Support = () => {
           <h1 className="text-3xl md:text-5xl font-bold mb-10">Bienvenido a Soporte</h1>
           <form onSubmit={handleSubmit} className="flex flex-col gap-0.5">
             <label className="label">
-              <span className="label-text">Cual es tu nombre?</span>
+              <span className="label-text">Cuál es tu nombre y apellido?</span>
             </label>
             <input
               type="text"
-              placeholder="Nombre"
+              placeholder="Nombre y Apellido"
               className="input input-bordered"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
+              value={fullName}
+              onChange={(event) => setFullName(event.target.value)}
             />
             <label className="label">
-              <span className="label-text">Cual es tu apellido?</span>
+              <span className="label-text">Cuál es tu correo electrónico?</span>
             </label>
             <input
-              type="text"
-              placeholder="Apellido"
+              type="email"
+              placeholder="Correo Electrónico"
               className="input input-bordered"
-              value={lastName}
-              onChange={(event) => setLastName(event.target.value)}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
             <label className="label">
               <span className="label-text">Escribe tu reporte</span>
@@ -49,9 +81,10 @@ const Support = () => {
             ></textarea>
 
             <div className="mt-4">
-              <button type="submit" className="btn">
-                Enviar Reporte
+              <button type="submit" className="btn" disabled={isSent}>
+                {isSent ? "Enviado" : "Enviar Reporte"}
               </button>
+              {isSent && <p className="text-green-500">El correo se ha enviado correctamente.</p>}
             </div>
           </form>
         </div>
@@ -61,5 +94,3 @@ const Support = () => {
 };
 
 export default Support;
-
-
