@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Input, Textarea } from "daisyui";
 
 const Support = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState("");
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,47 +13,46 @@ const Support = () => {
   return (
     <div className="hero min-h-screen bg-base-100">
       <div className="hero-content text-center">
-        <div className="max-w-md">
-          <h1 className="text-5xl font-bold">Bienvenido a Soporte</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">Cual es tu nombre?</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Nombre"
-                className="input input-bordered w-full max-w-xs"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-              />
-              <label className="label">
-                <span className="label-text">Cual es tu apellido?</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Apellido"
-                className="input input-bordered w-full max-w-xs"
-                value={lastName}
-                onChange={(event) => setLastName(event.target.value)}
-              />
-<label className="label">
-  <span className="label-text">Escribe tu reporte</span>
-</label>
-<textarea
-  placeholder="Mensaje"
-  className="input input-bordered w-full max-w-xs"
-  value={message}
-  onChange={(event) => setLastMessage(event.target.value)}
-  rows="5"
-  style={{ height: "200px", width: "100%" }}
-></textarea>
+        <div className="max-w-md mx-auto">
+          <h1 className="text-3xl md:text-5xl font-bold mb-10">Bienvenido a Soporte</h1>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-0.5">
+            <label className="label">
+              <span className="label-text">Cual es tu nombre?</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Nombre"
+              className="input input-bordered"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+            />
+            <label className="label">
+              <span className="label-text">Cual es tu apellido?</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Apellido"
+              className="input input-bordered"
+              value={lastName}
+              onChange={(event) => setLastName(event.target.value)}
+            />
+            <label className="label">
+              <span className="label-text">Escribe tu reporte</span>
+            </label>
+            <textarea
+              placeholder="Mensaje"
+              className="input input-bordered"
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
+              rows="5"
+              style={{ height: "200px" }}
+            ></textarea>
 
+            <div className="mt-4">
+              <button type="submit" className="btn">
+                Enviar Reporte
+              </button>
             </div>
-            
-            <button type="submit" className="btn">
-              Enviar Reporte
-            </button>
           </form>
         </div>
       </div>
@@ -64,4 +61,5 @@ const Support = () => {
 };
 
 export default Support;
+
 
