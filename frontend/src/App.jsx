@@ -12,6 +12,8 @@ function App() {
     <div>
       <NavBar />
       <Routes>
+      <Route path="/history" element={<History />} />
+      <Route path="/support" element={<Support />} />
         <Route path="/" element={<ChatRoom />} />
         <Route
           path="/chat"
