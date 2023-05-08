@@ -11,68 +11,30 @@ from src.utilities.exceptions.http.exc_400 import (
 
 router = fastapi.APIRouter(prefix="/chat", tags=["chat"])
 
-
 @router.post(
     "/user_message",
-    name="chat:user_message",
+    name="chat:message",
 )
 async def user_message(
-    
+    message: str, # Se recibe el mensaje del usuario
+    use_offline_info: bool = False, # Opciones de procesamiento según el origen de la respuesta
 ) -> dict:
     """
-    Query del usuario
-
-    Se recibe la consulta del usuario, para ser procesada y enviada a las diferentes APIs()
+    Endpoint para manejar las solicitudes de mensajes del usuario. 
+    Recibe los mensajes enviados por el usuario en el chat, los procesa 
+    y envía una respuesta al usuario. 
 
     Parameters: 
-        - query y otros parametros predefinidos por frontend
+        - message: mensaje enviado por el usuario
+        - use_offline_info: booleano para indicar si se empleará información del indexador offline
 
-    Response:
-        - 
-
+    Returns:
+        - Mensaje de respuesta generado por la IA o información relevante del indexador offline, 
+        según lo especificado en use_offline_info.
     """
-    return {"message":"se recibe lo que el usuario escribe"}
-
-@router.get(
-    "/user_answer",
-    name="chat:user_answer",
-)
-async def user_answers(
-    
-) -> dict:
-    """
-    Respuesta al usuario
-
-    El usuario obtiene la respuesta a su consulta anterior()
-
-    Parametros: 
-        - 
-
-    Retorno:
-        - llas 3 respuestas de la IA
-
-    """
-    return {"message":"se envia la respuesta de chatgpt al chat con el usuario"}
-
-
-@router.get(
-    "/user_questions",
-    name="chat:user_questions",
-    
-)
-async def user_questions(
-    
-) -> dict:
-    """
-    Preguntas del usuario
-
-    Se envian 3 posibles preguntas que podria tener el usuario sobre la respuesta que le da la IA()
-
-    Parametros: 
-        - la respuesta que dio la IA
-
-    Retorno:
-        - C3 posibles preguntas cortas
-        
-    """
-    return {"message":"el backend online le envia al frontend las posibles preguntas que tenga el usuario segun su respuesta"}
+    if use_offline_info:
+        # Lógica para obtener información relevante del indexador offline y devolver al usuario
+        pass
+    else:
+        # Lógica para generar una respuesta mediante la API de IA y devolver al usuario
+        pass

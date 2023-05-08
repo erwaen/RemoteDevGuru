@@ -12,24 +12,23 @@ from src.utilities.exceptions.http.exc_400 import (
 router = fastapi.APIRouter(prefix="/support", tags=["support"])
 
 @router.post(
-    "/user_support",
-    name="support:user_support",
-    
+    "/send_report",
+    name="support:send_report",
 )
-async def user_support(
-    
-) -> dict:
+async def send_report(
+    report_data: dict
+) -> None:
     """
-    Soporte de usuario
+    Endpoint que maneja la recepción de informes por parte de los usuarios.
 
-    el usuario envia un formulario con un problema que haya tenido al utilizar el chatbot()
-
-    Parametros: 
-        - nombre de usuario y una descripcion del problema que ha tenido
+    Parametros:
+        report_data: un diccionario con la información del informe.
 
     Retorno:
-        - 
-    
+        None
     """
-    return {"message":"se recibe los errores/problemas que envia el usuario"}
-
+    try:
+        repository = get_repository()
+        await repository.create_report(report_data)
+    except EntityAlreadyExists:
+        pass
