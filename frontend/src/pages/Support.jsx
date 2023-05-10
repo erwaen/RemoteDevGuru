@@ -81,7 +81,7 @@ const Support = () => {
             ></textarea>
 
             <div className="mt-4">
-              <button type="submit" className="btn" disabled={isSent}>
+            <button className="btn bg-blue-900">
                 {isSent ? "Enviado" : "Enviar Reporte"}
               </button>
               {isSent && <p className="text-green-500">El correo se ha enviado correctamente.</p>}
