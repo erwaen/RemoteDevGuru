@@ -32,9 +32,13 @@ async def user_message(
         - Mensaje de respuesta generado por la IA o información relevante del indexador offline, 
         según lo especificado en use_offline_info.
     """
-    if use_offline_info:
+    return {"message":"mensaje recibido"}
+    
+    
+    """if use_offline_info:
         # Lógica para obtener información relevante del indexador offline y devolver al usuario
+        return {"message":"mensaje recibido"}
         pass
     else:
         # Lógica para generar una respuesta mediante la API de IA y devolver al usuario
-        pass
+        pass"""
