@@ -1,8 +1,7 @@
 import fastapi
-import openai
-
 
 from src.api.dependencies.repository import get_repository
+from src.api.routes.chatgpt import mensaje
 
 from src.securities.authorizations.jwt import jwt_generator
 from src.utilities.exceptions.database import EntityAlreadyExists
@@ -10,8 +9,6 @@ from src.utilities.exceptions.http.exc_400 import (
     http_exc_400_credentials_bad_signin_request,
     http_exc_400_credentials_bad_signup_request,
 )
-
-openai.api_key = API_KEY
 
 router = fastapi.APIRouter(prefix="/chat", tags=["chat"])
 
@@ -39,4 +36,4 @@ async def user_message(
     #a partir de aqui llamaremos al modulo de chatgpt para enviar el query del usuario
 
     
-    return {"message":respuestas()}
+    return {"message":mensaje("dime como convertirme en un buen programador web")}
