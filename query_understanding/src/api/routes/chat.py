@@ -1,4 +1,6 @@
 import fastapi
+import openai
+
 
 from src.api.dependencies.repository import get_repository
 
@@ -8,6 +10,8 @@ from src.utilities.exceptions.http.exc_400 import (
     http_exc_400_credentials_bad_signin_request,
     http_exc_400_credentials_bad_signup_request,
 )
+
+openai.api_key = API_KEY
 
 router = fastapi.APIRouter(prefix="/chat", tags=["chat"])
 
@@ -32,13 +36,7 @@ async def user_message(
         - Mensaje de respuesta generado por la IA o información relevante del indexador offline, 
         según lo especificado en use_offline_info.
     """
-    return {"message":"mensaje recibido"}
+    #a partir de aqui llamaremos al modulo de chatgpt para enviar el query del usuario
+
     
-    
-    """if use_offline_info:
-        # Lógica para obtener información relevante del indexador offline y devolver al usuario
-        return {"message":"mensaje recibido"}
-        pass
-    else:
-        # Lógica para generar una respuesta mediante la API de IA y devolver al usuario
-        pass"""
+    return {"message":respuestas()}

@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.containerWrap {
+  @apply container mx-auto max-w-4xl;
+}
+
+header {
+    @apply relative flex items-center justify-between h-20 px-8 bg-blue-900 text-white;
+  }
+  
+  nav {
+    @apply absolute top-full left-0 w-full flex flex-col items-center justify-center gap-6 bg-blue-900 transition-transform duration-500 transform translate-y-full z-50;
+    height: auto;
+    max-height: 30vh;
+    overflow-y: auto;
+  }
+  
+  @media only screen and (max-width: 1024px) {
+    header {
+      @apply relative;
+    }
+  
+    .nav-btn {
+      @apply visible opacity-100;
+    }
+  
+    .hero {
+      @apply relative z-10;
+    }
+  
+    .responsive_nav {
+      @apply transform translate-y-full;
+    }
+  
+    .nav-close-btn {
+      @apply absolute top-8 right-8;
+    }
+  
+    nav a {
+      @apply text-lg;
+    }
+  
+    .hero {
+      @apply relative z-10;
+    }
+  }
+  
