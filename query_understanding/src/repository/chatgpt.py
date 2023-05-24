@@ -1,8 +1,9 @@
 import openai
+from src.config.manager import settings
+API_KEY = settings
 
-API_KEY = ""
 
-openai.api_key = API_KEY
+openai.api_key = settings.OPENAI_KEY
 
 #le explica a la ia que rol va a cumplir
 messages = [{
@@ -25,19 +26,6 @@ def mensaje( user_query ):
             "content": content
         })
 
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=messages
-        )
-
-        response_content = response.choices[0].message.content
-
-        # aqui se agrega la respuesta a la lista de mensajes para mantener el contexto de la conversacion
-        messages.append({
-            "role": "assistant",
-            "content": response
-        })
-
-        print(response.choices[0].message.content)
-        input()
-        respuesta = True
+    print(response.choices[0].message.content)
+    
+    respuesta = True
