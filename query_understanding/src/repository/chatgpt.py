@@ -1,9 +1,9 @@
 import openai
+from src.config.manager import settings
+API_KEY = settings
 
-API_KEY = "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"
 
-
-openai.api_key = API_KEY
+openai.api_key = settings.OPENAI_KEY
 
 #Contexto del asistente
 messages = [{"role":"system",
@@ -28,5 +28,4 @@ while respuesta == False:
 
     print(response.choices[0].message.content)
     
-    input()
     respuesta = True
