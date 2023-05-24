@@ -27,3 +27,11 @@ pytest-xdist
 SQLAlchemy==2.0.0b3
 trio
 uvicorn
+openai
+langchain
+pypdf
+pandas
+matplotlib
+plotly
+scipy
+scikit-learn
