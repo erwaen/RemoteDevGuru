@@ -70,6 +70,7 @@ class BackendBaseSettings(pydantic.BaseSettings):
     HASHING_ALGORITHM_LAYER_2: str = decouple.config("HASHING_ALGORITHM_LAYER_2", cast=str)  # type: ignore
     HASHING_SALT: str = decouple.config("HASHING_SALT", cast=str)  # type: ignore
     JWT_ALGORITHM: str = decouple.config("JWT_ALGORITHM", cast=str)  # type: ignore
+    OPENAI_KEY: str = decouple.config("OPENAI_KEY", cast=str)  # type: ignore
 
     class Config(pydantic.BaseConfig):
 
