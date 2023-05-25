@@ -3,7 +3,6 @@ from src.llms.domain.openai import OpenAiDomain
 
 from src.config.manager import settings
 from src.api.dependencies.repository import get_repository
-from src.api.routes.chatgpt import mensaje
 
 from src.securities.authorizations.jwt import jwt_generator
 from src.utilities.exceptions.database import EntityAlreadyExists
