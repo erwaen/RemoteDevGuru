@@ -17,7 +17,7 @@ function Navbar() {
   return (
     <header className="flex items-center justify-between h-20 px-8 bg-blue-900 text-white">
       <h3 className="text-xl font-semibold">LOGO</h3>
-      <nav ref={navRef} className="fixed top-0 left-0 h-screen w-screen flex flex-col items-center justify-center gap-6 bg-blue-900 transition-transform duration-500 transform -translate-y-full z-50">
+      <nav ref={navRef} className="fixed top-0 h-screen bg-blue-900 transition-transform duration-500 transform -translate-y-full">
         {menuOptions.map((option) => (
           <a key={option.id} href={option.href} className="text-white hover:text-red-500">
             {option.label}
