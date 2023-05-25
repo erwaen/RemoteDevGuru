@@ -11,7 +11,6 @@ from src.utilities.exceptions.http.exc_400 import (
     http_exc_400_credentials_bad_signup_request,
 )
 
-
 router = fastapi.APIRouter(prefix="/chat", tags=["chat"])
 
 @router.post(
