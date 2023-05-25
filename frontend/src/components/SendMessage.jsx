@@ -5,56 +5,6 @@ const SendMessage = ({ onSend }) => {
   const [value, setValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // const handleSendMessage = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const endpoint = `http://localhost:8001/api/chat/user_message`;
-  //     const response = await fetch(endpoint, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": `application/json`,
-  //       },
-  //       body: JSON.stringify({
-  //         message: value,
-  //       }),
-  //     });
-  //     console.log(response);
-
-  //     const data = await response.json();
-  //     console.log(data);
-  //     //const apiKey = "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";
-  //     //const endpoint = `https://api.openai.com/v1/completions`;
-
-  //     // const response = await fetch(endpoint, {
-  //     //   method: "POST",
-  //     //   headers: {
-  //     //     "Content-Type": `application/json`,
-  //     //     Authorization: `Bearer ${apiKey}`,
-  //     //   },
-  //     //   body: JSON.stringify({
-  //     //     prompt: value,
-  //     //     temperature: 0.5,
-  //     //     model: "text-davinci-003",
-  //     //   }),
-  //     // });
-
-  //     // const data = await response.json();
-  //     // console.log(data);
-
-  //     // if (data.choices && data.choices.length > 0) {
-  //     //   const generatedText = data.choices[0].text;
-  //     //   onSendMessage(generatedText);
-  //     // }
-
-  //     setErrorMessage("");
-  //     setValue("");
-  //   } catch (error) {
-  //     console.error(error);
-  //     setErrorMessage("Error al enviar el mensaje");
-  //   }
-  // };
-
   //set value on prop value
   const handleChange = (e) => {
     setValue(e.target.value);
