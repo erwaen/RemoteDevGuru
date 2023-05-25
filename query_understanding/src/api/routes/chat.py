@@ -7,6 +7,7 @@ from src.repository.openai_repository import OpenAiRepository
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
+
 @router.get(
     "/",
     name="chat:message",
