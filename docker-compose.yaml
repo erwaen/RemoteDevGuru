@@ -82,5 +82,17 @@ services:
     depends_on:
       - db
 
+  react_app:
+    container_name: react_app
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend/
+    expose:
+      - 5173
+    ports:
+      - 3001:5173
+    depends_on:
+      - db
 volumes:
   postgresql_db_data:
