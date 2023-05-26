@@ -90,10 +90,11 @@ services:
       context: ./frontend/
     volumes:
       - ./frontend/:/usr/frontend
+      - /usr/frontend/node_modules
     expose:
-      - 5173
+      - 8002
     ports:
-      - 5173:5173
+      - 8002:8002
     depends_on:
       - db
 volumes:
