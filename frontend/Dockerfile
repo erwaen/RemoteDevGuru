@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expone el puerto del servidor de desarrollo de React (opcional)
-EXPOSE 8002
+EXPOSE 3000
 
 # Comando para iniciar la aplicación
 CMD ["npm", "run", "dev"]

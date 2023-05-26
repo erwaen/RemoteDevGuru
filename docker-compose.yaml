@@ -92,9 +92,9 @@ services:
       - ./frontend/:/usr/frontend
       - /usr/frontend/node_modules
     expose:
-      - 8002
+      - 3000
     ports:
-      - 8002:8002
+      - 3000:3000
     depends_on:
       - db
 volumes:
