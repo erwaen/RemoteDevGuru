@@ -13,9 +13,9 @@ const ChatRoom = () => {
   const connectingToBackend = async (value) => {
     try {
       const response = await fetch(
-        "http://localhost:8001/api/chat/user_message?message=" + value,
+        "http://localhost:8001/api/chat/?prompt=" + value,
         {
-          method: "POST",
+          method: "GET",
         }
       );
 
@@ -23,7 +23,7 @@ const ChatRoom = () => {
 
       //response
       const data = await response.json();
-      data.message.forEach((element) => {
+      data.respuestas.forEach((element) => {
         addMessageList(element, "bot");
       });
     } catch (error) {
