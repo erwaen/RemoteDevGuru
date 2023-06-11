@@ -1,9 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ChatBox from "../components/ChatBox";
 import SendMessage from "../components/SendMessage";
 
 const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
+  const [suggestedQuestions, setSuggestedQuestions] = useState([]); // Se agregó un nuevo estado para las preguntas sugeridas
 
   const handleSend = (value) => {
     addMessageList(value, "user");
@@ -19,20 +20,20 @@ const ChatRoom = () => {
         }
       );
 
-      //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
-
-      //response
       const data = await response.json();
+
+      // Obtener preguntas sugeridas
+      const suggestedQuestions = data.preguntas_sugeridas; // Asignar las preguntas sugeridas desde la respuesta
+      setSuggestedQuestions(suggestedQuestions); // Actualizar el estado con las preguntas sugeridas
+
       data.respuestas.forEach((element) => {
         addMessageList(element, "bot");
       });
     } catch (error) {
-
       console.log(error);
     }
   };
 
-  //add new messages to the list by defining their sender
   function addMessageList(text, user) {
     setMessages((prevMessages) => [
       ...prevMessages,
@@ -42,8 +43,9 @@ const ChatRoom = () => {
 
   return (
     <div>
-      <ChatBox messages={messages}></ChatBox>
-      <SendMessage onSend={handleSend}></SendMessage>
+      <ChatBox messages={messages} />
+      {/* Se agregó suggestedQuestions como una prop */}
+      <SendMessage onSend={handleSend} suggestedQuestions={suggestedQuestions} />
     </div>
   );
 };
