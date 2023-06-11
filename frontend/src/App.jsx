@@ -10,7 +10,6 @@ import { PrivateRoute } from "./routes/PrivateRoute";
 function App() {
   return (
     <div>
-      <NavBar />
       <Routes>
       <Route path="/history" element={<History />} />
       <Route path="/support" element={<Support />} />
