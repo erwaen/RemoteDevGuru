@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 
-const SendMessage = ({ onSend, /*suggestedQuestions*/ }) => {
+const SendMessage = ({ onSend, suggestedQuestions }) => {
   const [value, setValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -17,7 +17,7 @@ const SendMessage = ({ onSend, /*suggestedQuestions*/ }) => {
 
   const handleSendMessage = () => {
     if (value === "") {
-      setErrorMessage("Por favor, escribe un mensaje..."); // Se agregó el mensaje de error
+      setErrorMessage("Por favor, escribe un mensaje...");
       return;
     }
     onSend(value);
@@ -29,20 +29,20 @@ const SendMessage = ({ onSend, /*suggestedQuestions*/ }) => {
     setValue(question);
   };
 
-  //const suggestedQuestion = suggestedQuestions[0] || ""; // Obtener la primera pregunta sugerida o una cadena vacía si no hay preguntas sugeridas
+  const suggestedQuestion = suggestedQuestions[0] || "";
 
   return (
     <div className="fixed bottom-3 left-7 right-7 items-center">
-      {/* Botón para preguntas sugeridas */}
-      <button
-        className="px-4 py-2 bg-gray-200 rounded-lg"
-        onClick={() => handleSuggestedQuestionClick(suggestedQuestion)}
-      >
-        {/*suggestedQuestion*/}
-      </button>
+      {suggestedQuestions.length > 0 && (
+        <button
+          className="px-4 py-2 bg-gray-200 rounded-lg mb-2"
+          onClick={() => handleSuggestedQuestionClick(suggestedQuestion)}
+        >
+          {suggestedQuestion}
+        </button>
+      )}
 
-      <div className="flex justify-between mt-2">
-        {/* Cuadro de entrada de texto */}
+      <div className="flex justify-between">
         <input
           type="text"
           className="w-full h-12 bg-gray-300 rounded-l-lg ps-5"
@@ -52,7 +52,6 @@ const SendMessage = ({ onSend, /*suggestedQuestions*/ }) => {
           onKeyDown={handleKeyDown}
         />
 
-        {/* Botón para enviar el mensaje */}
         <button
           className="flex w-20 h-12 rounded-r-lg items-center justify-center bg-zinc-800"
           onClick={handleSendMessage}
@@ -61,7 +60,6 @@ const SendMessage = ({ onSend, /*suggestedQuestions*/ }) => {
         </button>
       </div>
 
-      {/* Mostrar mensaje de error */}
       <p className="text-red-500 text-xs italic mt-2">{errorMessage}</p>
     </div>
   );

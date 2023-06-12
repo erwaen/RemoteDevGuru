@@ -5,7 +5,7 @@ import SendMessage from "../components/SendMessage";
 
 const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
-  const [suggestedQuestions, setSuggestedQuestions] = useState([]); // Se agregó un nuevo estado para las preguntas sugeridas
+  const [suggestedQuestions, setSuggestedQuestions] = useState([]);
 
   const handleSend = (value) => {
     addMessageList(value, "user");
@@ -23,13 +23,12 @@ const ChatRoom = () => {
 
       const data = await response.json();
 
-      // Obtener preguntas sugeridas
-      const suggestedQuestions = data.preguntas_sugeridas; // Asignar las preguntas sugeridas desde la respuesta
-      setSuggestedQuestions(suggestedQuestions); // Actualizar el estado con las preguntas sugeridas
-
       data.respuestas.forEach((element) => {
         addMessageList(element, "bot");
       });
+
+      const suggestedQuestions = data.preguntas_sugeridas;
+      setSuggestedQuestions(suggestedQuestions);
     } catch (error) {
       console.log(error);
     }
@@ -46,7 +45,7 @@ const ChatRoom = () => {
     <div>
       <Navbar></Navbar>
       <ChatBox messages={messages}></ChatBox>
-      <SendMessage onSend={handleSend}></SendMessage>
+      <SendMessage onSend={handleSend} suggestedQuestions={suggestedQuestions}></SendMessage>
     </div>
   );
 };
