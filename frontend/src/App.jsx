@@ -11,17 +11,17 @@ function App() {
   return (
     <div>
       <Routes>
-      <Route path="/history" element={<History />} />
-      <Route path="/support" element={<Support />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/support" element={<Support />} />
         <Route path="/" element={<ChatRoom />} />
-        <Route
+        {/* <Route
           path="/chat"
           element={
             <PrivateRoute>
               <ChatRoom />
             </PrivateRoute>
           }
-        />
+        /> */}
       </Routes>
     </div>
   );

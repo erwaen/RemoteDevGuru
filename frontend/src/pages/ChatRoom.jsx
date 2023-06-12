@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Navbar from "../components/NavBar";
 import ChatBox from "../components/ChatBox";
 import SendMessage from "../components/SendMessage";
 
@@ -43,6 +44,7 @@ const ChatRoom = () => {
 
   return (
     <div>
+      <Navbar></Navbar>
       <ChatBox messages={messages}></ChatBox>
       <SendMessage onSend={handleSend}></SendMessage>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 
-const SendMessage = ({ onSend, suggestedQuestions }) => {
+const SendMessage = ({ onSend, /*suggestedQuestions*/ }) => {
   const [value, setValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -29,7 +29,7 @@ const SendMessage = ({ onSend, suggestedQuestions }) => {
     setValue(question);
   };
 
-  const suggestedQuestion = suggestedQuestions[0] || ""; // Obtener la primera pregunta sugerida o una cadena vacía si no hay preguntas sugeridas
+  //const suggestedQuestion = suggestedQuestions[0] || ""; // Obtener la primera pregunta sugerida o una cadena vacía si no hay preguntas sugeridas
 
   return (
     <div className="fixed bottom-3 left-7 right-7 items-center">
@@ -38,7 +38,7 @@ const SendMessage = ({ onSend, suggestedQuestions }) => {
         className="px-4 py-2 bg-gray-200 rounded-lg"
         onClick={() => handleSuggestedQuestionClick(suggestedQuestion)}
       >
-        {suggestedQuestion}
+        {/*suggestedQuestion*/}
       </button>
 
       <div className="flex justify-between mt-2">

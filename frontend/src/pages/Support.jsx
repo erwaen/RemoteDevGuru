@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
+import Navbar from "../components/NavBar";
 
 const Support = () => {
   const [fullName, setFullName] = useState("");
@@ -43,7 +44,8 @@ const Support = () => {
   };
 
   return (
-    <div className="hero min-h-screen bg-base-100">
+    <div className="hero min-h-screen bg-base-100 fixed top-[61px] ">
+      <Navbar></Navbar>
       <div className="hero-content text-center">
         <div className="max-w-md mx-auto">
           <h1 className="text-3xl md:text-5xl font-bold mb-10">Bienvenido a Soporte</h1>
