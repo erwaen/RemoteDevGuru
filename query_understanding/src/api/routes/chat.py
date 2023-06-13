@@ -1,6 +1,7 @@
 """View para conexion con el chat"""
 
-from fastapi import APIRouter, status, Query
+from fastapi import APIRouter, status, Query, HTTPException
+from src.api.dependencies.indice_mock import IndiceMaxLenException
 from src.models.schemas.chat_schemas import ChatResponse
 from src.repository.openai_repository import OpenAiRepository
 
@@ -34,9 +35,14 @@ async def chat_message(
         - preguntas_sugeridas: Lista de posibles preguntas futuras del usuario
     """
     openai = OpenAiRepository()
+    try:
+        responses = openai.get_chat_response(message=prompt, result_number=1)
+    except IndiceMaxLenException as e:
+        raise HTTPException(status_code=400, detail=e)
+
     return {
-            "respuestas": openai.get_coincidence(message=prompt, result_number=1),
-            "preguntas_sugeridas": openai.get_coincidence_externo(message=f"Sugiereme 2 preguntas, teniendo en cuenta que la pregunta anterior fue {prompt}")
+            "respuestas": responses,
+            "preguntas_sugeridas": openai.sugerence_questions(question=prompt)
         }
 
 # @router.get('/embending')
