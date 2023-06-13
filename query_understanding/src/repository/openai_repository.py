@@ -1,5 +1,6 @@
 """Repository for a openai conexion"""
 
+import asyncio
 import pathlib
 
 from src.api.dependencies.indice_mock import IndiceMock
@@ -12,9 +13,12 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage
 # openai.api_key = settings.OPENAI_KEY
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-
+from langchain.callbacks.base import AsyncCallbackHandler
+from langchain.schema import AgentAction, AgentFinish, LLMResult
+from typing import Any, Awaitable, Callable, Dict, List, Union
 ROOT_DIR: pathlib.Path = pathlib.Path(__file__).parent.parent.parent.resolve()
 MODEL = "gpt-3.5-turbo"
+from langchain.callbacks.manager import AsyncCallbackManager
 class BaseLlmRepository():
     doc_dir = f"{ROOT_DIR}/documentos/"
     
@@ -31,6 +35,19 @@ class BaseLlmRepository():
         """Preguntas sugeridas"""
         pass
 
+Sender = Callable[[Union[str, bytes]], Awaitable[None]]
+from starlette.types import Send
+
+class AsyncStreamCallbackHandler(AsyncCallbackHandler):
+    """Callback handler for streaming, inheritance from AsyncCallbackHandler."""
+
+    def __init__(self, send: Sender):
+        super().__init__()
+        self.send = send
+
+    async def on_llm_new_token(self, token: str, **kwargs: Any) -> None:
+        """Rewrite on_llm_new_token to send token to client."""
+        await self.send(f"data: {token}\n\n")
 
 class OpenAiRepository(BaseLlmRepository):
     """Repositorio para la conexion con openAI"""
@@ -108,9 +125,18 @@ class OpenAiRepository(BaseLlmRepository):
         respuesta = llm_openai(prompt_value)
         return parser.parse(respuesta)
    
-    def chat_stream_mode(self, prompt: str):
-        llm = OpenAI(streaming=True, callbacks=[StreamingStdOutCallbackHandler()], temperature=0, openai_api_key=settings.OPENAI_KEY)
-        resp = llm(prompt)
+    def chat_stream_mode(self, prompt: str)-> Callable[[Sender], Awaitable[None]]:
+
+        async def generate(send: Sender):
+            model = ChatOpenAI(
+                streaming=True,
+                openai_api_key=settings.OPENAI_KEY,
+                verbose=True,
+                callback_manager=AsyncCallbackManager([AsyncStreamCallbackHandler(send)]),
+            )
+            await model.agenerate(messages=[[HumanMessage(content=prompt)]])
+
+        return generate
 
     # def verify_remote_question(self, question:str) -> bool:
     #     from langchain.output_parsers.enum import EnumOutputParser
