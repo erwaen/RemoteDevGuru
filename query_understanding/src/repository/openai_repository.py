@@ -11,6 +11,8 @@ from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, Sy
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage
 # openai.api_key = settings.OPENAI_KEY
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+
 ROOT_DIR: pathlib.Path = pathlib.Path(__file__).parent.parent.parent.resolve()
 MODEL = "gpt-3.5-turbo"
 class BaseLlmRepository():
@@ -26,6 +28,7 @@ class BaseLlmRepository():
         """Solicitamos al back indice los resultados"""
         pass
     def sugerence_questions(self, question: str) -> bool:
+        """Preguntas sugeridas"""
         pass
 
 
@@ -105,6 +108,10 @@ class OpenAiRepository(BaseLlmRepository):
         respuesta = llm_openai(prompt_value)
         return parser.parse(respuesta)
    
+    def chat_stream_mode(self, prompt: str):
+        llm = OpenAI(streaming=True, callbacks=[StreamingStdOutCallbackHandler()], temperature=0, openai_api_key=settings.OPENAI_KEY)
+        resp = llm(prompt)
+
     # def verify_remote_question(self, question:str) -> bool:
     #     from langchain.output_parsers.enum import EnumOutputParser
     #     from enum import Enum

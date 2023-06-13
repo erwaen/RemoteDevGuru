@@ -45,8 +45,12 @@ async def chat_message(
             "preguntas_sugeridas": openai.sugerence_questions(question=prompt)
         }
 
-# @router.get('/embending')
-# async def embedding():
-#   verificar si el archivo es de tipo pdf
-#     OpenAiDomain().embedding()
-#     return 'success'
+@router.get('/stream')
+async def stream(
+    prompt: str = Query(..., example="Hola chat remote"),
+):
+    """Ejemplo de implementar chat gpt con stream mode activo
+    En este caso no es recomendable usar
+    Se deberia de usar websockets para la integracion"""
+    OpenAiRepository().chat_stream_mode(prompt=prompt)
+    return {}
