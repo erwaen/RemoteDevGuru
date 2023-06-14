@@ -47,6 +47,7 @@ async def chat_message(
             "preguntas_sugeridas": openai.sugerence_questions(question=prompt)
         }
 
+
 class ChatOpenAIStreamingResponse(StreamingResponse):
     """Streaming response for openai chat model, inheritance from StreamingResponse."""
     Sender = Callable[[Union[str, bytes]], Awaitable[None]]
