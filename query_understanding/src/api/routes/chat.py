@@ -1,9 +1,12 @@
 """View para conexion con el chat"""
 
-from fastapi import APIRouter, status, Query
+import asyncio
+from typing import Awaitable, Callable, Optional, Union
+from fastapi import APIRouter, status, Query, HTTPException
+from src.api.dependencies.indice_mock import IndiceMaxLenException
 from src.models.schemas.chat_schemas import ChatResponse
 from src.repository.openai_repository import OpenAiRepository
-
+from fastapi.responses import StreamingResponse
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
@@ -34,13 +37,56 @@ async def chat_message(
         - preguntas_sugeridas: Lista de posibles preguntas futuras del usuario
     """
     openai = OpenAiRepository()
+    try:
+        responses = openai.get_chat_response(message=prompt, result_number=1)
+    except IndiceMaxLenException as e:
+        raise HTTPException(status_code=400, detail=e)
+
     return {
-            "respuestas": openai.get_coincidence(message=prompt, result_number=1),
-            "preguntas_sugeridas": openai.get_coincidence_externo(message=f"Sugiereme 2 preguntas, teniendo en cuenta que la pregunta anterior fue {prompt}")
+            "respuestas": responses,
+            "preguntas_sugeridas": openai.sugerence_questions(question=prompt)
         }
 
-# @router.get('/embending')
-# async def embedding():
-#   verificar si el archivo es de tipo pdf
-#     OpenAiDomain().embedding()
-#     return 'success'
+
+class ChatOpenAIStreamingResponse(StreamingResponse):
+    """Streaming response for openai chat model, inheritance from StreamingResponse."""
+    Sender = Callable[[Union[str, bytes]], Awaitable[None]]
+    from starlette.types import Send
+
+    def __init__(
+            self,
+            generate: Callable[[Sender], Awaitable[None]],
+            status_code: int = 200,
+            media_type: Optional[str] = None,
+    ) -> None:
+        super().__init__(content=iter(()), status_code=status_code, media_type=media_type)
+        self.generate = generate
+
+    async def stream_response(self, send: Send) -> None:
+        """Rewrite stream_response to send response to client."""
+        await send(
+            {
+                "type": "http.response.start",
+                "status": self.status_code,
+                "headers": self.raw_headers,
+            }
+        )
+
+        async def send_chunk(chunk: Union[str, bytes]):
+            if not isinstance(chunk, bytes):
+                chunk = chunk.encode(self.charset)
+            await send({"type": "http.response.body", "body": chunk, "more_body": True})
+
+        # send body to client
+        await self.generate(send_chunk)
+
+        # send empty body to client to close connection
+        await send({"type": "http.response.body", "body": b"", "more_body": False})
+        
+@router.get('/stream')
+async def stream(
+    prompt: str = Query(..., example="Hola chat remote"),
+):
+    """Ejemplo de implementar chat gpt con stream mode activo
+    """
+    return ChatOpenAIStreamingResponse(OpenAiRepository().chat_stream_mode(prompt=prompt), media_type='text/event-stream')
