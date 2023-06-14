@@ -1,9 +1,11 @@
 import { useState } from "react";
+import Navbar from "../components/NavBar";
 import ChatBox from "../components/ChatBox";
 import SendMessage from "../components/SendMessage";
 
 const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
+  const [suggestedQuestions, setSuggestedQuestions] = useState([]);
 
   const handleSend = (value) => {
     addMessageList(value, "user");
@@ -19,20 +21,19 @@ const ChatRoom = () => {
         }
       );
 
-      //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
-
-      //response
       const data = await response.json();
+
       data.respuestas.forEach((element) => {
         addMessageList(element, "bot");
       });
-    } catch (error) {
 
+      const suggestedQuestions = data.preguntas_sugeridas;
+      setSuggestedQuestions(suggestedQuestions);
+    } catch (error) {
       console.log(error);
     }
   };
 
-  //add new messages to the list by defining their sender
   function addMessageList(text, user) {
     setMessages((prevMessages) => [
       ...prevMessages,
@@ -42,8 +43,9 @@ const ChatRoom = () => {
 
   return (
     <div>
+      <Navbar></Navbar>
       <ChatBox messages={messages}></ChatBox>
-      <SendMessage onSend={handleSend}></SendMessage>
+      <SendMessage onSend={handleSend} suggestedQuestions={suggestedQuestions}></SendMessage>
     </div>
   );
 };

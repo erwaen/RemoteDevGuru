@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import Message from "./Message";
 
 const ChatBox = ({ messages }) => {
   return (
-    <div>
+    <div className="fixed top-[60px] bottom-[95px] right-0 left-0 overflow-y-auto">
       {messages.map((message, index) => (
-        <Message key={index} message={message}></Message>
+        <Message key={index} message={message} /> // Se eliminó el cierre explícito de la etiqueta Message
       ))}
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

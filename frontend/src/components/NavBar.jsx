@@ -1,38 +1,39 @@
-import { useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import icon from "../assets/3.png";
 
-function Navbar() {
-  const navRef = useRef();
-
-  const showNavbar = () => {
-    navRef.current.classList.toggle("translate-y-full");
-  };
-
-  const menuOptions = [
-    { id: 1, label: "Home", href: "/chat" },
-    { id: 2, label: "History", href: "/history" },
-    { id: 3, label: "Support", href: "/support" },
-  ];
+const Navbar = () => {
+  const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <header className="flex items-center justify-between h-20 px-8 bg-blue-900 text-white">
-      <h3 className="text-xl font-semibold">LOGO</h3>
-      <nav ref={navRef} className="fixed top-0 h-screen bg-blue-900 transition-transform duration-500 transform -translate-y-full">
-        {menuOptions.map((option) => (
-          <a key={option.id} href={option.href} className="text-white hover:text-red-500">
-            {option.label}
-          </a>
-        ))}
-        <button className="nav-btn nav-close-btn" onClick={showNavbar}>
-          <FaTimes />
-        </button>
-      </nav>
-      <button className="nav-btn" onClick={showNavbar}>
-        <FaBars />
-      </button>
-    </header>
+    <div className="z-10 shadow-md w-full py-4 justify-between top-0 fixed bg-zinc-900 left-0 md:flex">
+      <div className="flex font-bold text-gray-200 text-xl ml-7 items-center">
+        <img src={icon} alt="" className="w-8" />
+        <a className="ml-1">RemoteDevGuru</a>
+      </div>
+      <div
+        onClick={() => setOpenMenu(!openMenu)}
+        className="text-gray-200 text-xl absolute right-6 top-5 cursor-pointer md:hidden"
+      >
+        {openMenu ? <FaTimes /> : <FaBars />}
+      </div>
+      <ul
+        className={`md:flex md:items-center text-lg md:pb-0 pb-4 md:static absolute bg-zinc-900 md:z-auto z-10 md:w-auto w-full transition-all duration-500 ease-in ${
+          openMenu
+            ? "top-[61px] opacity-100"
+            : "top-[-130px] md:opacity-100 opacity-0"
+        }`}
+      >
+        <li className="text-gray-200 hover:text-gray-400 duration-300 md:mr-8 md:my-0 my-5 text-center">
+          <Link to="/">Chat</Link>
+        </li>
+        <li className="text-gray-200 hover:text-gray-400 duration-300 md:mr-10 text-center">
+          <Link to="/support">Support</Link>
+        </li>
+      </ul>
+    </div>
   );
-}
+};
 
 export default Navbar;
-
