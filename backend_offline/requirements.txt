@@ -1,0 +1,8 @@
+googletrans
+numpy
+python-dateutil
+scrapeops-scrapy-proxy-sdk
+Scrapy
+scrapy
+scrapy-selenium
+selenium
