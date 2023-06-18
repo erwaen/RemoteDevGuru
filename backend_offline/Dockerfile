@@ -2,13 +2,14 @@
 FROM python:3.10
 
 # Establecemos un directorio de trabajo
-WORKDIR /
+WORKDIR /app
 
 # Copiamos el archivo de requerimientos al contenedor
 COPY requirements.txt .
 
 # Instalamos las dependencias de la aplicación
 RUN pip install -r requirements.txt
+
 
 # Copiamos el resto del código de la aplicación al contenedor
 COPY . .
