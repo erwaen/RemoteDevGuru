@@ -47,6 +47,17 @@ docker build -t backend_offline:backend_offline .
  docker run --name backend_offline_container backend_offline:backend_offline.
  ```
 
+# Con docker-compose se mapeo a un volumen local para que los resultados se queden en nuestra maquina y no en el contenedor
+
+1. Buildear
+```
+docker-compose build
+```
+2. Levantar (correr)
+```
+docker-compose up
+```
+
 # Trabajo furuto para recolectar información actualizada
 
 >**Para el caso de LinkedIn**: establecí la fecha exacta del scrapeo para que pasado un tiempo X establecido deseado se pueda ir corriendo el scrapeo de nuevo y tener información actualizada. Lo unico que quedaria es configurar un proceso que lea el ultimo archivo exportado, leer la ultima fecha de scrapeo, comparar con la fecha actual y si existe tal diferencia deseada de x tiempo, volver a correr el spider scrapeador de LinkedIn.
