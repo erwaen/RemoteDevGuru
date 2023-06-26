@@ -48,7 +48,7 @@ PINECONE_API_KEY = getpass("Pinecone API Key: ")
 PINECONE_ENV = input("Pinecone environment: ")
 
 # Set the name for the new Pinecone index.
-index_name = 'linkedin-docs'
+index_name = 'test'
 
 # Select the given Pinecone index.
 index = pinecone.Index(index_name)
@@ -63,10 +63,7 @@ embeddings = OpenAIEmbeddings(
     openai_api_key=OPENAI_API_KEY
 )
 
-index_name='test'
-
-docsearch = Pinecone.from_documents(
-    docs, embeddings, index_name=index_name)
+Pinecone.from_documents(docs, embeddings, index_name=index_name)
 
 print(
     f"All of the documents from the directory {directory}"\
