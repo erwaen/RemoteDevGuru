@@ -4,6 +4,8 @@ import pinecone
 from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
 from getpass import getpass
+from langchain.chat_models import ChatOpenAI
+from langchain.chains import RetrievalQAWithSourcesChain
 
 class Query(BaseModel):
     query_content: str
@@ -30,13 +32,38 @@ embeddings = OpenAIEmbeddings(
 )
 
 # Set the name for the new Pinecone index.
-index_name = 'test'
+index_name = 'remote-dev-guru'
 
-docsearch = Pinecone.from_existing_index(
+# Initialize a vectorstore from an existing Pinecone index.
+vectorstore = Pinecone.from_existing_index(
     index_name, embeddings, text_key='text')
+
+# Completion LLM, for the Q&A functionality.
+llm = ChatOpenAI(
+    openai_api_key=OPENAI_API_KEY,
+    model_name='gpt-3.5-turbo',
+    temperature=0.0
+    )
+
 
 app = FastAPI()
 
-@app.post("/")
+# This endpoint does a similarity search with whatever is passed
+# as a query. It returns the 4 most relevant documents from the
+# vector database.
+@app.post("/similarity_search")
 async def process_query(query: Query):
-    return docsearch.similarity_search(query.query_content)
+    return {
+        'results': vectorstore.similarity_search(query.query_content)
+        }
+
+# This endpoint answers questions based on information from the
+# vector database. It also returns the sources of information.
+@app.post("/qa")
+async def process_query(query: Query):
+    qa = RetrievalQAWithSourcesChain.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=vectorstore.as_retriever()
+    )
+    return qa(query.query_content)
