@@ -1,34 +1,32 @@
+import pinecone
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
-import pinecone
 from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
-from getpass import getpass
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQAWithSourcesChain
+from dotenv import load_dotenv
+
+# Load the variables from the .env file as environment variables.
+load_dotenv()
 
 class Query(BaseModel):
     query_content: str
 
-# Get the Pinecone API key.
-PINECONE_API_KEY = getpass("Pinecone API Key: ")
-# Get the Pinecone environment (found in the API section).
-PINECONE_ENV = input("Pinecone environment: ")
-
 # Initilize a Python "instance" of Pinecone.
 pinecone.init(
-    api_key=PINECONE_API_KEY,
-    environment=PINECONE_ENV
+    api_key=os.getenv("PINECONE_API_KEY"),
+    environment=os.getenv("PINECONE_ENV")
 )
 
-# Get OpenAI API key.
-OPENAI_API_KEY = getpass("OpenAI API Key: ")
+# Specify the OpenAI model.
 model = 'text-embedding-ada-002'
 
 # Set the text embedding model. We will use one from OpenAI.
 embeddings = OpenAIEmbeddings(
     model=model,
-    openai_api_key=OPENAI_API_KEY
+    openai_api_key=os.getenv("OPENAI_API_KEY")
 )
 
 # Set the name for the new Pinecone index.
@@ -40,7 +38,7 @@ vectorstore = Pinecone.from_existing_index(
 
 # Completion LLM, for the Q&A functionality.
 llm = ChatOpenAI(
-    openai_api_key=OPENAI_API_KEY,
+    openai_api_key=os.getenv("OPENAI_API_KEY"),
     model_name='gpt-3.5-turbo',
     temperature=0.0
     )
