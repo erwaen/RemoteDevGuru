@@ -97,5 +97,20 @@ services:
       - 3000:3000
     depends_on:
       - db
+
+  retrieval_augmentation_api:
+    container_name: retrieval_augmentation_api
+    build:
+      dockerfile: Dockerfile
+      context: ./retrieval_augmentation/api
+    expose:
+      - 8000
+    ports:
+      - 8000:8000
+    environment:
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+      - PINECONE_ENV=${PINECONE_ENV}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+
 volumes:
   postgresql_db_data:

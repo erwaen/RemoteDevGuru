@@ -72,12 +72,9 @@ pinecone.init(
     environment=os.getenv("PINECONE_ENV")
 )
 
-# Specify the OpenAI model.
-model = 'text-embedding-ada-002'
-
 # Set the text embedding model. We will use one from OpenAI.
 embeddings = OpenAIEmbeddings(
-    model=model,
+    model='text-embedding-ada-002',
     openai_api_key=os.getenv("OPENAI_API_KEY")
 )
 
