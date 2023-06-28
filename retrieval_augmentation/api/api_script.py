@@ -6,10 +6,6 @@ from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQAWithSourcesChain
-from dotenv import load_dotenv
-
-# Load the variables from the .env file as environment variables.
-load_dotenv()
 
 class Query(BaseModel):
     query_content: str
