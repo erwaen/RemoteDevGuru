@@ -1,8 +1,8 @@
 FROM python:latest
 
-COPY api_script.py .
+COPY [ "api_script.py", "requirements.txt", "./" ]
 
-RUN pip3 install "fastapi[all]" langchain pinecone-client
+RUN pip3 install -r requirements.txt
 
 EXPOSE 8000
 

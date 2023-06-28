@@ -1,0 +1,5 @@
+langchain
+pinecone-client
+tiktoken
+jq
+openai
