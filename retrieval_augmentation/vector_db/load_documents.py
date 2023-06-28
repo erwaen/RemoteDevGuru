@@ -6,7 +6,6 @@ from langchain.document_loaders import JSONLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Pinecone
-from dotenv import load_dotenv
 from aux_methods import (
     user_input_to_bool,
     metadata_fun_linkedin,
@@ -20,9 +19,6 @@ if len(sys.argv) < 2:
 
 # Get the name of the JSON file passed as argument to the script.
 json_doc = sys.argv[1]
-
-# Load the variables from the .env file as environment variables.
-load_dotenv()
 
 # If the data is scrapped from LinkedIn, we have to embed the
 # "detalle_del_puesto" field. If it is from a website, we embed
